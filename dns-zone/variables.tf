@@ -4,11 +4,11 @@ variable "projectid" {
 }
 
 variable "name" {
-  type    = string
-  default = "pre-e-school"
+  type        = string
+  description = "Type zone name"
 }
 
 variable "dns_name" {
-  type    = string
-  default = "pre.e-school.am"
+  type        = string
+  description = "Type Dns zone name"
 }
