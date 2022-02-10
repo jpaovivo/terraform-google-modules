@@ -1,14 +1,15 @@
-variable "projectid" {
-  type    = string
-  default = "ncet-adb-kgn-tutor-platform"
+variable "project_id" {
+  type        = string
+  description = "Google cloud project id"
 }
 
 variable "name" {
   type        = string
-  description = "Type zone name"
+  description = "zone name"
 }
 
-variable "dns_name" {
+variable "description" {
   type        = string
-  description = "Type Dns zone name"
+  description = "Dns zone description"
+  default     = ""
 }
