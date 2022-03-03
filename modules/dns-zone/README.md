@@ -7,5 +7,6 @@ module "dns-zone" {
 
     project_id = "your project_id here"
     name = "example.com"
+    key_path = "./key.json"
 }
 ```

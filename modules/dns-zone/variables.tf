@@ -13,3 +13,8 @@ variable "description" {
   description = "Dns zone description"
   default     = ""
 }
+variable "key_path" {
+  type        = string
+  description = "key.json folder"
+  default     = ""
+}
