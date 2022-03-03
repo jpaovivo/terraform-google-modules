@@ -1,7 +1,7 @@
 
 
 provider "google" {
-  credentials = file("key.json")
+  credentials = file("${var.key_path}")
 }
 
 
