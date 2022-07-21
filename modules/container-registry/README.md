@@ -1,8 +1,8 @@
 # Example. Create container registry
 ```
 module "my-container-registry" {
-  source  = "dasmeta/terraform/google//modules/container-registry"
-  version = "0.1.3"
+  source  = "dasmeta/modules/google//modules/container-registry"
+  version = "0.3.0"
 
   name     = "my-container-registry"
   project  = "my-google-project"
