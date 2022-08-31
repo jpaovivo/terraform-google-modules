@@ -5,7 +5,6 @@ locals {
 }
 
 resource "google_monitoring_uptime_check_config" "https" {
-
   display_name = var.name
   timeout      = var.timeout
 

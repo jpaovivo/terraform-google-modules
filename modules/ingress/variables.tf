@@ -13,6 +13,7 @@ variable "paths" {
     }
   ]
 }
+
 variable "annotations" {
   type    = map(any)
   default = {}

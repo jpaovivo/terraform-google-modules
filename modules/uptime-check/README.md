@@ -13,7 +13,6 @@ module "uptime_check" {
 # Maximum parameters 
 ```
 module "uptime_check" {
-
   source = "dasmeta/modules/google//modules/uptime-check"
   name = ""
   timeout = ""
