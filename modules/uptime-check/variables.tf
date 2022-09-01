@@ -3,6 +3,10 @@ variable "name" {
   default = "https-uptime-check"
 }
 
+variable "project_id" {
+  type = string
+}
+
 variable "timeout" {
   type    = string
   default = "60s"

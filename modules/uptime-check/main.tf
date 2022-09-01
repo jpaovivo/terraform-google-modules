@@ -22,16 +22,14 @@ resource "google_monitoring_uptime_check_config" "https" {
   monitored_resource {
     type = var.monitored_resource_type
     labels = {
-      host = var.monitored_resource_host
+      project_id = var.project_id
+      host       = var.monitored_resource_host
     }
   }
 }
 
-data "google_project" "project" {
-}
-
 resource "google_monitoring_alert_policy" "alert_policy" {
-  project      = data.google_project.project.number
+  project      = var.project_id
   display_name = var.name
   combiner     = "OR"
   conditions {
