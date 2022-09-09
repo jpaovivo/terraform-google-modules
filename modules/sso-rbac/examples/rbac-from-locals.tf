@@ -14,7 +14,7 @@ locals {
     name      = "viewers"
     actions   = ["get", "list", "watch"]
     resources = ["deployments"]
-  }, {
+    }, {
     name      = "editors"
     actions   = ["get", "list", "watch"]
     resources = ["pods"]
@@ -26,10 +26,10 @@ locals {
     namespace = "development"
     roles     = ["viewers", "editors"]
 
-  }, {
+    }, {
     group     = "accountants@DOMAIN"
     namespace = "accounting"
     roles     = ["editors"]
-  }
+    }
   ]
 }
