@@ -3,9 +3,6 @@ module "gcp-sso-module" {
 
   bindings = local.bindings
   roles    = local.roles
-
-  cluster_location = "us-central1"
-  cluster_name     = "my-gke-cluster"
 }
 
 locals {

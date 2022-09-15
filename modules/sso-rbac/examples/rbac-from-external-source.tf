@@ -11,9 +11,6 @@ module "gcp-sso-module" {
 
   bindings = module.bindings.bindings
   roles    = module.bindings.roles
-
-  cluster_location = "us-central1"
-  cluster_name     = "my-gke-cluster"
 }
 
 provider "google" {
