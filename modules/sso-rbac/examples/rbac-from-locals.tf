@@ -35,8 +35,8 @@ locals {
 }
 
 provider "google" {
-  project     = "experiments-327107"
-  region      = "us-central1"
+  project = "experiments-327107"
+  region  = "us-central1"
 }
 
 provider "kubernetes" {
