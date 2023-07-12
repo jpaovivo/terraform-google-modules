@@ -23,7 +23,7 @@ jobs:
           - modules/service-accounts
           - modules/sso-rbac
           - modules/uptime-check
-     
+
     steps:
     - uses: dasmeta/reusable-actions-workflows/checkov@main
       with:
