@@ -45,7 +45,7 @@ variable "http_check" {
     path         = optional(string, "/")                # The path to the page to run the check against. Will be combined with the host
     port         = optional(string, "443")              # The port to the page to run the check against. Will be combined with host
     use_ssl      = optional(bool, true)                 # If true, use HTTPS instead of HTTP to run the check.
-    validate_ssl = optional(bool, true)                 # Specifies whether to include SSL certificate validation as a part of the Uptime check. 
+    validate_ssl = optional(bool, true)                 # Specifies whether to include SSL certificate validation as a part of the Uptime check.
     status_class = optional(string, "STATUS_CLASS_2XX") # A class of status codes to accept.
     status_value = optional(number, 0)                  # A status code to accept.
   })
@@ -85,7 +85,7 @@ variable "email_addres" {
   default     = null
 }
 
-# Slack Notification 
+# Slack Notification
 variable "enable_slack_notifiacation" {
   type        = bool
   description = "Whether enable slack notifications or not."
