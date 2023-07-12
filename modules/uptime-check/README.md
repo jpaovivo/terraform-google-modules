@@ -1,6 +1,6 @@
 This module creates http and https uptime checks in gcp.
 
-# Minimum parameters
+# Example
 ```
 module "uptime_checks" {
   source = "dasmeta/modules/google//modules/uptime-check"
