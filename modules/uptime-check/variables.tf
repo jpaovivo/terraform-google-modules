@@ -4,6 +4,18 @@ variable "name" {
   default     = "https-uptime-check"
 }
 
+variable "display_name" {
+  type        = string
+  description = "Display name for an uptime check in GCP console."
+  default     = ""
+}
+
+variable "checker_location" {
+  type        = string
+  description = "Checker location filter for uptime check metric. If specified, this filter will be added to the alert policy config. Can be one of: apac-singapore, eur-belgium, sa-brazil-sao_paulo, usa-iowa, usa-oregon, usa-virginia."
+  default     = ""
+}
+
 variable "project_id" {
   type        = string
   description = "The ID of the project in which the resource belongs. If it is not provided, the provider project is used."
@@ -25,7 +37,7 @@ variable "period" {
 variable "duration" {
   type        = string
   description = "The amount of time that a time series must fail to report new data to be considered failing."
-  default     = "120s"
+  default     = "300s"
 }
 
 variable "comparison" {
@@ -37,7 +49,7 @@ variable "comparison" {
 variable "threshold_value" {
   type        = string
   description = "The comparison to apply between the time series (indicated by filter and aggregation) and the threshold (indicated by threshold_value)."
-  default     = 1
+  default     = 4
 }
 
 variable "http_check" {
@@ -116,7 +128,7 @@ variable "aggregations" {
     alignment_period     = "60s"
     cross_series_reducer = ""
     group_by_fields      = []
-    per_series_aligner   = "ALIGN_COUNT_TRUE"
+    per_series_aligner   = "ALIGN_COUNT"
   }
 }
 

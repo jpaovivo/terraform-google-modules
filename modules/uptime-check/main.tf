@@ -1,5 +1,5 @@
 resource "google_monitoring_uptime_check_config" "https" {
-  display_name = var.name
+  display_name = var.display_name != "" ? var.display_name : var.name
   timeout      = var.timeout
   period       = var.period
 
