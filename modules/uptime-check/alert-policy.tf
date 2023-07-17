@@ -13,7 +13,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
     display_name = var.name
 
     condition_threshold {
-      filter          = var.alert_policy_filter == "" ? "resource.type = \"uptime_url\" AND metric.type = \"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.labels.check_id = \"${google_monitoring_uptime_check_config.https.uptime_check_id}\"" : var.alert_policy_filter
+      filter          = var.alert_policy_filter == "" && var.checker_location == "" ? "resource.type = \"uptime_url\" AND metric.type = \"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.labels.check_id = \"${google_monitoring_uptime_check_config.https.uptime_check_id}\"" : var.alert_policy_filter == "" && var.checker_location != "" ? "resource.type = \"uptime_url\" AND metric.type = \"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.labels.check_id = \"${google_monitoring_uptime_check_config.https.uptime_check_id}\" AND metric.labels.checker_location = \"${var.checker_location}\"" : var.alert_policy_filter
       duration        = var.duration
       comparison      = var.comparison
       threshold_value = var.threshold_value

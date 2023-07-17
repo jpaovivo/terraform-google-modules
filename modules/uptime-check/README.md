@@ -2,22 +2,40 @@ This module creates http and https uptime checks in gcp.
 
 # Example
 ```
+locals {
+  hosts_and_paths = [
+    {
+      name         = "example.com"
+      host         = "example.com"
+      health_check = true
+      path         = "/"
+    },
+    {
+      name         = "example.com/mobile/"
+      host         = "example.com"
+      health_check = true
+      path         = "/mobile/"
+    },
+  ]
+}
+
 module "uptime_checks" {
   source = "dasmeta/modules/google//modules/uptime-check"
 
-  enable_email_notifiacation = false
-  enable_slack_notifiacation = true
-  name                       = "example.com"
-  channel_name               = "#gcp-alert-notifications"
-  auth_token                 = "xoxb-xxxxxxxxxxxxxx"
-  threshold_value            = 3
-  project_id                 = "my-project"
-  timeout                    = "20s"
-  http_check = {
-    path = "/"
-  }
-}
+  for_each = { for item in local.hosts_and_paths : item.name => item if item.health_check }
 
+  enable_email_notification = false
+  enable_slack_notification = true
+  project_id                 = "my-project"
+  name                       = each.value.host
+  display_name               = each.value.name
+  channel_name               = "xxxxx"
+  auth_token                 = "xxxxx"
+  http_check = {
+    path = each.value.path
+  }
+  documentation_content = each.value.name
+}
 ```
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -96,13 +114,15 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aggregations"></a> [aggregations](#input\_aggregations) | Specifies the alignment of data points in individual time series as well as how to combine the retrieved time series together. | <pre>object({<br>    alignment_period     = optional(string, "300s")             # The alignment period for per-time series alignment. If present, alignmentPeriod must be at least 60 seconds.<br>    group_by_fields      = optional(list(string), [])           # The set of fields to preserve when crossSeriesReducer is specified.<br>    cross_series_reducer = optional(string, "")                 # The approach to be used to combine time series.<br>    per_series_aligner   = optional(string, "ALIGN_COUNT_TRUE") # The approach to be used to align individual time series.<br>  })</pre> | <pre>{<br>  "alignment_period": "60s",<br>  "cross_series_reducer": "",<br>  "group_by_fields": [],<br>  "per_series_aligner": "ALIGN_COUNT_TRUE"<br>}</pre> | no |
+| <a name="input_aggregations"></a> [aggregations](#input\_aggregations) | Specifies the alignment of data points in individual time series as well as how to combine the retrieved time series together. | <pre>object({<br>    alignment_period     = optional(string, "300s")             # The alignment period for per-time series alignment. If present, alignmentPeriod must be at least 60 seconds.<br>    group_by_fields      = optional(list(string), [])           # The set of fields to preserve when crossSeriesReducer is specified.<br>    cross_series_reducer = optional(string, "")                 # The approach to be used to combine time series.<br>    per_series_aligner   = optional(string, "ALIGN_COUNT_TRUE") # The approach to be used to align individual time series.<br>  })</pre> | <pre>{<br>  "alignment_period": "60s",<br>  "cross_series_reducer": "",<br>  "group_by_fields": [],<br>  "per_series_aligner": "ALIGN_COUNT"<br>}</pre> | no |
 | <a name="input_alert_policy_filter"></a> [alert\_policy\_filter](#input\_alert\_policy\_filter) | A filter that identifies which time series should be compared with the threshold. | `string` | `""` | no |
 | <a name="input_auth_token"></a> [auth\_token](#input\_auth\_token) | Slack app bot's token used to integrate GCP notifications with slack channel | `string` | `null` | no |
 | <a name="input_channel_name"></a> [channel\_name](#input\_channel\_name) | Slack channel name to which notifications will be sent. | `string` | `null` | no |
+| <a name="input_checker_location"></a> [checker\_location](#input\_checker\_location) | Checker location filter for uptime check metric. If specified, this filter will be added to the alert policy config. Can be one of: apac-singapore, eur-belgium, sa-brazil-sao\_paulo, usa-iowa, usa-oregon, usa-virginia. | `string` | `""` | no |
 | <a name="input_comparison"></a> [comparison](#input\_comparison) | The comparison to apply between the time series (indicated by filter and aggregation) and the threshold (indicated by threshold\_value). | `string` | `"COMPARISON_LT"` | no |
+| <a name="input_display_name"></a> [display\_name](#input\_display\_name) | Display name for an uptime check in GCP console. | `string` | `""` | no |
 | <a name="input_documentation_content"></a> [documentation\_content](#input\_documentation\_content) | The text of the alert documentation. | `string` | `""` | no |
-| <a name="input_duration"></a> [duration](#input\_duration) | The amount of time that a time series must fail to report new data to be considered failing. | `string` | `"120s"` | no |
+| <a name="input_duration"></a> [duration](#input\_duration) | The amount of time that a time series must fail to report new data to be considered failing. | `string` | `"300s"` | no |
 | <a name="input_email_addres"></a> [email\_addres](#input\_email\_addres) | Email address to which the notifications will be sent. | `string` | `null` | no |
 | <a name="input_enable_email_notifiacation"></a> [enable\_email\_notifiacation](#input\_enable\_email\_notifiacation) | Whether enable email notifications or not. | `bool` | `true` | no |
 | <a name="input_enable_slack_notifiacation"></a> [enable\_slack\_notifiacation](#input\_enable\_slack\_notifiacation) | Whether enable slack notifications or not. | `bool` | `false` | no |
@@ -111,7 +131,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | A short name or phrase used to identify the uptime check and policy in dashboards, notifications, and incidents. | `string` | `"https-uptime-check"` | no |
 | <a name="input_period"></a> [period](#input\_period) | How often, in seconds, the uptime check is performed. | `string` | `"60s"` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The ID of the project in which the resource belongs. If it is not provided, the provider project is used. | `string` | `null` | no |
-| <a name="input_threshold_value"></a> [threshold\_value](#input\_threshold\_value) | The comparison to apply between the time series (indicated by filter and aggregation) and the threshold (indicated by threshold\_value). | `string` | `1` | no |
+| <a name="input_threshold_value"></a> [threshold\_value](#input\_threshold\_value) | The comparison to apply between the time series (indicated by filter and aggregation) and the threshold (indicated by threshold\_value). | `string` | `4` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | The maximum amount of time to wait for the request to complete (must be between 1 and 60 seconds). | `string` | `"20s"` | no |
 | <a name="input_trigger"></a> [trigger](#input\_trigger) | The number/percent of time series for which the comparison must hold in order for the condition to trigger. | <pre>object({<br>    percent = optional(number, 0) # The percentage of time series that must fail the predicate for the condition to be triggered.<br>    count   = optional(number, 1) # The absolute number of time series that must fail the predicate for the condition to be triggered.<br>  })</pre> | <pre>{<br>  "count": 1,<br>  "percent": 0<br>}</pre> | no |
 
