@@ -97,7 +97,7 @@ variable "email_addres" {
   default     = null
 }
 
-# Slack Notification
+# Slack Notifications
 variable "enable_slack_notifiacation" {
   type        = bool
   description = "Whether enable slack notifications or not."
@@ -113,6 +113,20 @@ variable "channel_name" {
 variable "auth_token" {
   type        = string
   description = "Slack app bot's token used to integrate GCP notifications with slack channel"
+  default     = null
+}
+
+# Opsgenie Notifications
+variable "enable_opsgenie_notifications" {
+  type        = bool
+  sensitive   = true
+  description = "Whether enable opsgenie notifications or not."
+  default     = true
+}
+
+variable "opsgenie_integration_url" {
+  type        = string
+  description = "Opsgenie integration's url for GCP monitoring norifications."
   default     = null
 }
 

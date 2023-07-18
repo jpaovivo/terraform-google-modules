@@ -107,6 +107,7 @@ No modules.
 |------|------|
 | [google_monitoring_alert_policy.alert_policy](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy) | resource |
 | [google_monitoring_notification_channel.email](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_notification_channel) | resource |
+| [google_monitoring_notification_channel.opsgenie](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_notification_channel) | resource |
 | [google_monitoring_notification_channel.slack](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_notification_channel) | resource |
 | [google_monitoring_uptime_check_config.https](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_uptime_check_config) | resource |
 
@@ -125,10 +126,12 @@ No modules.
 | <a name="input_duration"></a> [duration](#input\_duration) | The amount of time that a time series must fail to report new data to be considered failing. | `string` | `"300s"` | no |
 | <a name="input_email_addres"></a> [email\_addres](#input\_email\_addres) | Email address to which the notifications will be sent. | `string` | `null` | no |
 | <a name="input_enable_email_notifiacation"></a> [enable\_email\_notifiacation](#input\_enable\_email\_notifiacation) | Whether enable email notifications or not. | `bool` | `true` | no |
+| <a name="input_enable_opsgenie_notifications"></a> [enable\_opsgenie\_notifications](#input\_enable\_opsgenie\_notifications) | Whether enable opsgenie notifications or not. | `bool` | `true` | no |
 | <a name="input_enable_slack_notifiacation"></a> [enable\_slack\_notifiacation](#input\_enable\_slack\_notifiacation) | Whether enable slack notifications or not. | `bool` | `false` | no |
 | <a name="input_http_check"></a> [http\_check](#input\_http\_check) | Contains information needed to make an HTTP or HTTPS check. | <pre>object({<br>    path         = optional(string, "/")                # The path to the page to run the check against. Will be combined with the host<br>    port         = optional(string, "443")              # The port to the page to run the check against. Will be combined with host<br>    use_ssl      = optional(bool, true)                 # If true, use HTTPS instead of HTTP to run the check.<br>    validate_ssl = optional(bool, true)                 # Specifies whether to include SSL certificate validation as a part of the Uptime check.<br>    status_class = optional(string, "STATUS_CLASS_2XX") # A class of status codes to accept.<br>    status_value = optional(number, 0)                  # A status code to accept.<br>  })</pre> | <pre>{<br>  "path": "/",<br>  "port": "443",<br>  "status_class": "STATUS_CLASS_2XX",<br>  "status_value": 0,<br>  "use_ssl": true,<br>  "validate_ssl": true<br>}</pre> | no |
 | <a name="input_monitored_resource_type"></a> [monitored\_resource\_type](#input\_monitored\_resource\_type) | The monitored resource type. | `string` | `"uptime_url"` | no |
 | <a name="input_name"></a> [name](#input\_name) | A short name or phrase used to identify the uptime check and policy in dashboards, notifications, and incidents. | `string` | `"https-uptime-check"` | no |
+| <a name="input_opsgenie_integration_url"></a> [opsgenie\_integration\_url](#input\_opsgenie\_integration\_url) | Opsgenie integration's url for GCP monitoring norifications. | `string` | `null` | no |
 | <a name="input_period"></a> [period](#input\_period) | How often, in seconds, the uptime check is performed. | `string` | `"60s"` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The ID of the project in which the resource belongs. If it is not provided, the provider project is used. | `string` | `null` | no |
 | <a name="input_threshold_value"></a> [threshold\_value](#input\_threshold\_value) | The comparison to apply between the time series (indicated by filter and aggregation) and the threshold (indicated by threshold\_value). | `string` | `4` | no |
