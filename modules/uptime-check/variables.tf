@@ -119,6 +119,7 @@ variable "auth_token" {
 # Opsgenie Notifications
 variable "enable_opsgenie_notifications" {
   type        = bool
+  sensitive   = true
   description = "Whether enable opsgenie notifications or not."
   default     = true
 }
