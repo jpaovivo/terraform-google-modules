@@ -23,3 +23,14 @@ resource "google_monitoring_notification_channel" "slack" {
     auth_token = var.auth_token
   }
 }
+
+resource "google_monitoring_notification_channel" "opsgenie" {
+  count = var.enable_opsgenie_notifications ? 1 : 0
+
+  display_name = "${var.name} Opsgenie Channel"
+  type         = "webhook_tokenauth"
+
+  labels = {
+    url = var.opsgenie_integration_url
+  }
+}
