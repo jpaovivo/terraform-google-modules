@@ -1,3 +1,12 @@
+## Usage
+This example creates
+- 2 uptime checks for `example.com` and `example.com/mobile` domains,
+- Slack and Webhook notification channels for each uptime check,
+- alert policies for each uptime check.
+
+Alert policies notify when the http calls respond not with 200 less than 6 times.
+Also, policies check only for South America region's checks in case you have geolocation restriction for the other regions or something like that.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

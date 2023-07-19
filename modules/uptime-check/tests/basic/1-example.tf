@@ -20,15 +20,17 @@ module "uptime_checks" {
 
   for_each = { for item in local.hosts_and_paths : item.name => item if item.health_check }
 
-  enable_email_notifiacation    = false
-  enable_slack_notifiacation    = true
-  enable_opsgenie_notifications = false
-  project_id                    = "my-project"
-  display_name                  = each.value.name
-  checker_location              = "sa-brazil-sao_paulo"
-  name                          = each.value.host
-  channel_name                  = "#alert-notifications"
-  auth_token                    = "xoxb-xxxxxxxxx"
+  enable_email_notifiacation   = false
+  enable_slack_notifiacation   = true
+  enable_webhook_notifications = true
+  webhook_integration_url      = "https://api.opsgenie.com/v1/json/googlestackdriver?apiKey=xxxxxxxxxxxx" //In this example opsgenie webhook url is used
+  project_id                   = "my-project"
+  selected_regions             = ["SOUTH_AMERICA", "EUROPE", "ASIA_PACIFIC"]
+  display_name                 = each.value.name
+  checker_location             = "sa-brazil-sao_paulo"
+  name                         = each.value.host
+  channel_name                 = "#alert-notifications"
+  auth_token                   = "xoxb-xxxxxxxxx" //Slack auth token
   http_check = {
     path = each.value.path
   }

@@ -1,7 +1,8 @@
 locals {
-  notification_channels_email = var.enable_email_notifiacation ? [google_monitoring_notification_channel.email[0].id] : []
-  notification_channels_slack = var.enable_slack_notifiacation ? [google_monitoring_notification_channel.slack[0].id] : []
-  all_notification_channels   = concat(local.notification_channels_email, local.notification_channels_slack)
+  notification_channels_email   = var.enable_email_notifiacation ? [google_monitoring_notification_channel.email[0].id] : []
+  notification_channels_slack   = var.enable_slack_notifiacation ? [google_monitoring_notification_channel.slack[0].id] : []
+  notification_channels_webhook = var.enable_webhook_notifications ? [google_monitoring_notification_channel.webhook[0].id] : []
+  all_notification_channels     = concat(local.notification_channels_email, local.notification_channels_slack, local.notification_channels_webhook)
 }
 
 resource "google_monitoring_alert_policy" "alert_policy" {

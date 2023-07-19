@@ -10,6 +10,12 @@ variable "display_name" {
   default     = ""
 }
 
+variable "selected_regions" {
+  type        = list(string)
+  description = "The list of regions from which the check will be run. Not specifying this field will result in uptime checks running from all regions."
+  default     = []
+}
+
 variable "checker_location" {
   type        = string
   description = "Checker location filter for uptime check metric. If specified, this filter will be added to the alert policy config. Can be one of: apac-singapore, eur-belgium, sa-brazil-sao_paulo, usa-iowa, usa-oregon, usa-virginia."
@@ -116,17 +122,17 @@ variable "auth_token" {
   default     = null
 }
 
-# Opsgenie Notifications
-variable "enable_opsgenie_notifications" {
+# Webhook Notifications
+variable "enable_webhook_notifications" {
   type        = bool
   sensitive   = true
-  description = "Whether enable opsgenie notifications or not."
+  description = "Whether enable webhook notifications or not."
   default     = true
 }
 
-variable "opsgenie_integration_url" {
+variable "webhook_integration_url" {
   type        = string
-  description = "Opsgenie integration's url for GCP monitoring norifications."
+  description = "Webhook integration's url for GCP monitoring norifications."
   default     = null
 }
 
