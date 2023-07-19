@@ -1,7 +1,8 @@
 resource "google_monitoring_uptime_check_config" "https" {
-  display_name = var.display_name != "" ? var.display_name : var.name
-  timeout      = var.timeout
-  period       = var.period
+  display_name     = var.display_name != "" ? var.display_name : var.name
+  timeout          = var.timeout
+  period           = var.period
+  selected_regions = var.selected_regions
 
   http_check {
     path         = var.http_check.path
