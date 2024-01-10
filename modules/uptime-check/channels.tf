@@ -1,5 +1,5 @@
 resource "google_monitoring_notification_channel" "email" {
-  count = var.enable_email_notifiacation ? 1 : 0
+  count = var.enable_email_notifications ? 1 : 0
 
   display_name = "${var.name} Email Channel"
   type         = "email"
@@ -10,7 +10,7 @@ resource "google_monitoring_notification_channel" "email" {
 }
 
 resource "google_monitoring_notification_channel" "slack" {
-  count = var.enable_slack_notifiacation ? 1 : 0
+  count = var.enable_slack_notifications ? 1 : 0
 
   display_name = "${var.name} Slack Channel"
   type         = "slack"
